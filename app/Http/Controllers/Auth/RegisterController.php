@@ -48,10 +48,33 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'username' => 'required|string|max:255',
-            'mail' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:4|confirmed',
+        return Validator::make($data,
+        [
+            'username' => 'required|string|between:4,12||',
+            'mail' => 'required|string|email|between:4,12|unique:users',
+            'password' => 'required|alpha_num|between:4,12|confirmed|unique:users',
+            'password_confirmation' => 'required|alpha_num|same:password'
+        ],
+        [
+            'username.required' =>'必須項目です',
+            'username.between' =>'4文字以上12文字以下で入力してください',
+            'username' =>'',
+            'mail.required' =>'必須項目です',
+            'mail.between' =>'4文字以上12文字以下で入力してください',
+            'mail.email' => '正しいメールアドレスを入力してください',
+            'mail.unique' => '既に使用されているメールアドレスです',
+            'mail' => '',
+            'mail' => '',
+            'password.required' =>'必須項目です',
+            'password.between' =>'4文字以上12文字以下で入力してください',
+            'password.unique' => '既に使用されているパスワードです',
+            'password.alpha_num' => '半角英数字で入力してください',
+            'password' => '',
+            'password' => '',
+            'password_confirmation.required' =>'必須項目です',
+            'password_confirmation.alpha_num' => '半角英数字で入力してください',
+            'password_confirmation.same' => 'パスワードが一致していません',
+
         ]);
     }
 
