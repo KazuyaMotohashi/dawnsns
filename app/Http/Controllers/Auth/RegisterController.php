@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use app\Validators\CustomValidators;
 
 class RegisterController extends Controller
 {
@@ -58,23 +59,17 @@ class RegisterController extends Controller
         [
             'username.required' =>'必須項目です',
             'username.between' =>'4文字以上12文字以下で入力してください',
-            'username' =>'',
             'mail.required' =>'必須項目です',
             'mail.between' =>'4文字以上12文字以下で入力してください',
             'mail.email' => '正しいメールアドレスを入力してください',
             'mail.unique' => '既に使用されているメールアドレスです',
-            'mail' => '',
-            'mail' => '',
             'password.required' =>'必須項目です',
             'password.between' =>'4文字以上12文字以下で入力してください',
             'password.unique' => '既に使用されているパスワードです',
             'password.alpha_num' => '半角英数字で入力してください',
-            'password' => '',
-            'password' => '',
             'password_confirmation.required' =>'必須項目です',
             'password_confirmation.alpha_num' => '半角英数字で入力してください',
-            'password_confirmation.same' => 'パスワードが一致していません',
-
+            'password_confirmation.same' => 'パスワードが一致していません'
         ]);
     }
 
@@ -101,12 +96,26 @@ class RegisterController extends Controller
     public function register(Request $request){
         if($request->isMethod('post')){
             $data = $request->input();
-
-            $this->create($data);
+            $this -> validator($data);
+            $this -> create($data);
             return redirect('added');
         }
         return view('auth.register');
     }
+
+    /**
+ * 定義済みバリデーションルールのエラーメッセージ取得
+ *
+ * @return array
+ */
+public function messages()
+{
+    return [
+        'title.required' => 'A title is required',
+        'body.required'  => 'A message is required',
+    ];
+}
+
 
     public function added(){
         return view('auth.added');

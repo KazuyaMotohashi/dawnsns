@@ -39,5 +39,4 @@ Route::get('/search','UsersController@index');
 Route::get('/follow-list','PostsController@index');
 Route::get('/follower-list','PostsController@index');
 
-
-
+Route::get('/logout','Auth\LoginController@logout');
