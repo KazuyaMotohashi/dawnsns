@@ -8,15 +8,19 @@
 
 {{ Form::label('ユーザー名') }}
 {{ Form::text('username',null,['class' => 'input']) }}
+{{$errors -> first('username')}}
 
 {{ Form::label('メールアドレス') }}
 {{ Form::text('mail',null,['class' => 'input']) }}
+{{$errors -> first('mail')}}
 
 {{ Form::label('パスワード') }}
 {{ Form::text('password',null,['class' => 'input']) }}
+{{$errors -> first('password')}}
 
 {{ Form::label('パスワード確認') }}
-{{ Form::text('password-confirm',null,['class' => 'input']) }}
+{{ Form::text('password_confirmation',null,['class' => 'input']) }}
+{{$errors -> first('password_confirmation')}}
 
 {{ Form::submit('登録') }}
 

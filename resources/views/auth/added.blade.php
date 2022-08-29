@@ -3,7 +3,10 @@
 @section('content')
 
 <div id="clear">
-<p>〇〇さん、</p>
+@if(Session::has('username'))
+<span>{{session('username')}}さん</span>
+@endif
+
 <p>ようこそ！DAWNSNSへ！</p>
 <p>ユーザー登録が完了しました。</p>
 <p>さっそく、ログインをしてみましょう。</p>

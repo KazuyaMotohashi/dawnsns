@@ -47,12 +47,12 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    public function validator(array $data)
     {
         return Validator::make($data,
         [
-            'username' => 'required|string|between:4,12||',
-            'mail' => 'required|string|email|between:4,12|unique:users',
+            'username' => 'required|string|between:4,12',
+            'mail' => 'required|string|email|unique:users',
             'password' => 'required|alpha_num|between:4,12|confirmed|unique:users',
             'password_confirmation' => 'required|alpha_num|same:password'
         ],
@@ -60,7 +60,6 @@ class RegisterController extends Controller
             'username.required' =>'必須項目です',
             'username.between' =>'4文字以上12文字以下で入力してください',
             'mail.required' =>'必須項目です',
-            'mail.between' =>'4文字以上12文字以下で入力してください',
             'mail.email' => '正しいメールアドレスを入力してください',
             'mail.unique' => '既に使用されているメールアドレスです',
             'password.required' =>'必須項目です',
@@ -96,10 +95,15 @@ class RegisterController extends Controller
     public function register(Request $request){
         if($request->isMethod('post')){
             $data = $request->input();
-            $this -> validator($data);
+            $val = $this -> validator($data);
+            if($val -> fails()){
+                return redirect('/register')
+                -> withErrors($val);
+            } else {
             $this -> create($data);
-            return redirect('added');
-        }
+            return redirect('added') -> with('username',$data['username']);
+            }
+         }
         return view('auth.register');
     }
 
