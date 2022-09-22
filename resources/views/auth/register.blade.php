@@ -15,11 +15,11 @@
 {{$errors -> first('mail')}}
 
 {{ Form::label('パスワード') }}
-{{ Form::text('password',null,['class' => 'input']) }}
+{{ Form::password('password',null,['class' => 'input']) }}
 {{$errors -> first('password')}}
 
 {{ Form::label('パスワード確認') }}
-{{ Form::text('password_confirmation',null,['class' => 'input']) }}
+{{ Form::password('password_confirmation',null,['class' => 'input']) }}
 {{$errors -> first('password_confirmation')}}
 
 {{ Form::submit('登録') }}

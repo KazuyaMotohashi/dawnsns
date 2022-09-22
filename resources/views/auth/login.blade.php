@@ -1,7 +1,7 @@
 @extends('layouts.logout')
 
 @section('content')
-
+@csrf
 {!! Form::open() !!}
 
 <p>DAWNSNSへようこそ</p>
