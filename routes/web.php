@@ -32,9 +32,20 @@ Route::get('/added', 'Auth\RegisterController@added');
 //ログイン中のページ
 Route::get('/top','PostsController@index');
 
-Route::get('/profile','UsersController@profile');
+Route::post('/post/create','PostsController@create');
 
-Route::get('/search','UsersController@index');
+Route::get('post/{id}/update-form','PostsController@updateForm');
+Route::post('/post/update','PostsController@update');
+
+Route::get('/post/{id}/delete','PostsController@delete');
+
+Route::get('/profile','PostsController@profile');
+Route::post('/profile/update','PostsController@edit');
+
+
+Route::get('/profile/{id}','UsersController@profile');
+
+Route::get('/search','UsersController@search');
 
 Route::get('/follow-list','FollowsController@followList');
 Route::get('/follower-list','FollowsController@followerList');

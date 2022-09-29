@@ -23,9 +23,9 @@
     <header>
         <div id = "head">
         <h1><a href="/top"><img src="images/main_logo.png"></a></h1>
-            <div id="">
-                <div id="">
-                    <p>{{$users->username}}さん<img src="{{ asset('images/'.$users->images)}}"></p>
+            <div id="pulldown-menu">
+                <div id="list">
+                    <p class ="btn"> {{$users->username}}さん<a  href="/profile"><img src="{{ asset('images/'.$users->images)}}"></a></p>
                 <div>
                 <ul>
                     <li><a href="/top">ホーム</a></li>
@@ -53,7 +53,7 @@
                 </div>
                 <p class="btn"><a href="/follower-list">フォロワーリスト</a></p>
             </div>
-            <p class="btn"><a href="">ユーザー検索</a></p>
+            <p class="btn"><a href="/search">ユーザー検索</a></p>
         </div>
     </div>
     <footer>

@@ -31,9 +31,9 @@ class PostsController extends Controller
         $posts = DB::table('users')
         ->Join('posts','users.id','=','posts.user_id')
         ->leftJoin('follows','users.id','=','follows.follow')
-        ->select('posts.post','users.username','posts.created_at','posts.id','users.images')
         ->where('follows.follower',$id)
         ->orWhere('user_id',$id)
+        ->select('posts.*','users.username','users.images')
         ->groupBy('posts.id')
         ->orderBy('posts.created_at','desc')
         ->get();
@@ -41,12 +41,86 @@ class PostsController extends Controller
         return view('posts.index',compact('users','follow','follower','posts'));
     }
 
-    public function upPost(){
+    public function create(Request $request)
+    {
+        $id = Auth::id();
+
+        $post = $request->input('newPost');
+        DB::table('posts')
+        ->insert([
+            'user_id'=>$id,
+            'post'=>$post,
+            'created_at'=>now(),
+        ]);
+
+        return redirect('/top');
+    }
+
+    public function updateForm($id)
+    {
+      $post = DB::table('posts')
+            ->where('id', $id)
+            ->first();
+        return view('posts.updateForm', compact('post'));
+    }
+
+    public function update(Request $request)
+    {
+        $id = $request->input('id');
+        $up_post = $request->input('upPost');
+        DB::table('posts')
+            ->where('id', $id)
+            ->update(['post' => $up_post]);
+
+        return redirect('/index');
+    }
+
+    public function delete($id)
+    {
+        DB::table('posts')
+            ->where('id', $id)
+            ->delete();
+
+        return redirect('/top');
+    }
+
+    public function profile(){
+
+        $id = Auth::id();
+
+        $users = DB::table('users')
+        ->where('id',$id)
+        ->first();
+
+        $follow = DB::table('follows')
+        ->where('follower',$id)
+        ->count();
+
+        $follower = DB::table('follows')
+        ->where('follow',$id)
+        ->count();
+
+        return view('posts.profile',compact('users','follow','follower'));
+
+    }
+
+    public function edit(Request $request){
+
+        $id = $request->input('id');
+        $up_profile = $request->input('upProfile');
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'username' => $username,
+                'mail' => $mail,
+                'password' => $newPassword,
+                'bio' => $bio,
+                'image' => $images
+            ]);
 
 
-
-       }
-
+        return view('/top',compact('up_profile'));
+    }
 
 
 
