@@ -106,20 +106,39 @@ class PostsController extends Controller
 
     public function edit(Request $request){
 
-        $id = $request->input('id');
-        $up_profile = $request->input('upProfile');
+        $id = Auth::id();
+        $username = $request->input('username');
+        $mail = $request->input('mail');
+        $bio = $request->input('bio');
+
+        if(request('newPassword')){
+            $password = $request->input('newPassword');
+        }else{
+            $password = DB::table('users')
+            ->where('id', $id)
+            ->value('password');
+           }
+
+        if(request('images')){
+            $image_name = $request->file('images')->getClientOriginalName();
+            $request->file('images')->storeAs('public/images',$image_name);
+        }else{
+            $image_name = DB::table('users')
+            ->where('id', $id)
+            ->value('images');
+        }
+
         DB::table('users')
             ->where('id', $id)
             ->update([
                 'username' => $username,
                 'mail' => $mail,
-                'password' => $newPassword,
+                'password' => $password,
                 'bio' => $bio,
-                'image' => $images
+                'images' => $image_name,
             ]);
 
-
-        return view('/top',compact('up_profile'));
+        return back();
     }
 
 

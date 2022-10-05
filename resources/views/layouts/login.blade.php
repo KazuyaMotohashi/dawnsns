@@ -22,10 +22,10 @@
 <body>
     <header>
         <div id = "head">
-        <h1><a href="/top"><img src="images/main_logo.png"></a></h1>
+        <h1><a href="/top"><img src="storage/images/main_logo.png"></a></h1>
             <div id="pulldown-menu">
                 <div id="list">
-                    <p class ="btn"> {{$users->username}}さん<a  href="/profile"><img src="{{ asset('images/'.$users->images)}}"></a></p>
+                    <p class ="btn"> {{$users->username}}さん<a><img src="{{ asset('storage/images/'.$users->images)}}"></a></p>
                 <div>
                 <ul>
                     <li><a href="/top">ホーム</a></li>

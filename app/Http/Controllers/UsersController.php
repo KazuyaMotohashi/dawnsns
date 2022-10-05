@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -15,16 +16,28 @@ class UsersController extends Controller
     //
     public function profile($id){
 
+        $usersId = Auth::id();
+
         $users = DB::table('users')
-        ->where('id',$id)
+        ->where('id',$usersId)
         ->first();
 
-        $posts = DB::table('posts')
-        ->where('id',$id)
+        $follow = DB::table('follows')
+        ->where('follower',$usersId)
+        ->count();
+
+        $follower = DB::table('follows')
+        ->where('follow',$usersId)
+        ->count();
+
+        $posts = DB::table('users')
+        ->join('posts','users.id','=','posts.user_id')
+        ->where('posts.user_id',$id)
+        ->select('posts.*','users.username','users.images','users.bio')
         ->orderBy('created_at','desc')
         ->get();
 
-        return view('users.profile',compact('posts'));
+        return view('users.profile',compact('users','follow','follower','posts'));
     }
 
     public function search(){

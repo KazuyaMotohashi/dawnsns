@@ -22,7 +22,7 @@
 
 @foreach($posts as $post)
 <tr>
-  <td ><a class="btn btn-profile" href ="/profile/{{ $post->user_id }}"><img src ="{{ asset('images/'.$post->images)}}"></a></td>
+  <td><img src ="{{ asset('storage/images/'.$post->images)}}"></td>
   <td>{{ $post ->username }}</td>
   <td>{{ $post ->post }}</td>
   <td>{{ $post ->created_at}}</td>
