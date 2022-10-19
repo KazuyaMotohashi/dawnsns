@@ -37,10 +37,50 @@ class UsersController extends Controller
         ->orderBy('created_at','desc')
         ->get();
 
-        return view('users.profile',compact('users','follow','follower','posts'));
+        $userInformation = DB::table('users')
+        ->where('id',$id)
+        ->first();
+
+        $status =DB::table('follows')
+        ->where('follow','=',$id)
+        ->get();
+
+        dd($status);
+
+        return view('users.profile',compact('users','follow','follower','posts','userInformation','status'));
+    }
+
+    public function addFollow($id){
+
+        $userId = Auth::id();
+
+         DB::table('follows')
+        ->insert([
+            'follow'=>$id,
+            'follower'=>$userId,
+        ]);
+
+       return back();
+    }
+
+    public function deleteFollow($id){
+
+        $userId = Auth::id();
+
+        DB::table('follows')
+        ->where([
+            ['follow','=',$id],
+            ['follower','=',$userId]])
+        ->delete();
+
+        return back();
     }
 
     public function search(){
+
+        $allUser = Db::table('users')
+        ->select('username','images')
+        ->get();
 
         return view('users.search');
     }

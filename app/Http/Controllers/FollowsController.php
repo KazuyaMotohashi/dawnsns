@@ -39,10 +39,10 @@ class FollowsController extends Controller
         $follows = DB::table('users')
         ->Join('posts','users.id','=','posts.user_id')
         ->whereIn('posts.user_id',$follow_id)
-        ->select('')
+        ->select('posts.*','users.username','users.bio','users.images')
         ->get();
 
-        return view('follows.followList',compact('follows'));
+        return view('follows.followList',compact('users','follows','follower','follow'));
     }
 
     public function followerList(){
@@ -68,7 +68,14 @@ class FollowsController extends Controller
         ->select('posts.*','users.username','users.bio','users.images')
         ->get();
 
-
         return view('follows.followerList',compact('users','follow','follower','followers'));
+    }
+
+    public function add_follow()
+    {
+    }
+
+    public function delete_follow()
+    {
     }
 }

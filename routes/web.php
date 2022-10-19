@@ -44,6 +44,8 @@ Route::post('/profile/update','PostsController@edit');
 
 
 Route::get('/profile/{id}','UsersController@profile');
+Route::get('/profile/{id}/add','UsersController@addFollow');
+Route::get('/profile/{id}/delete','UsersController@deleteFollow');
 
 Route::get('/search','UsersController@search');
 

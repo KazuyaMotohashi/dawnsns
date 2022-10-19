@@ -13,12 +13,7 @@
   {!!Form::close()!!}
 </div>
 
-<th></th>
-<th>ID</th>
-<th>投稿内容</th>
-<th>投稿日時</th>
-<th></th>
-<th></th>
+
 
 @foreach($posts as $post)
 <tr>
