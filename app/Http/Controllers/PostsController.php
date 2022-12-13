@@ -46,6 +46,7 @@ class PostsController extends Controller
         $id = Auth::id();
 
         $post = $request->input('newPost');
+
         DB::table('posts')
         ->insert([
             'user_id'=>$id,
@@ -56,23 +57,15 @@ class PostsController extends Controller
         return redirect('/top');
     }
 
-    public function updateForm($id)
+    public function update($id, Request $request)
     {
-      $post = DB::table('posts')
-            ->where('id', $id)
-            ->first();
-        return view('posts.updateForm', compact('post'));
-    }
 
-    public function update(Request $request)
-    {
-        $id = $request->input('id');
         $up_post = $request->input('upPost');
         DB::table('posts')
             ->where('id', $id)
             ->update(['post' => $up_post]);
 
-        return redirect('/index');
+        return redirect('/top');
     }
 
     public function delete($id)

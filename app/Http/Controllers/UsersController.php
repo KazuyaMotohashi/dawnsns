@@ -43,9 +43,7 @@ class UsersController extends Controller
 
         $status =DB::table('follows')
         ->where('follow','=',$id)
-        ->get();
-
-        dd($status);
+        ->first();
 
         return view('users.profile',compact('users','follow','follower','posts','userInformation','status'));
     }
@@ -73,15 +71,63 @@ class UsersController extends Controller
             ['follower','=',$userId]])
         ->delete();
 
+        return redirect()->route('profile',['id'=>$id]);
+    }
+
+    public function searchDeleteFollow($id){
+
+        $userId = Auth::id();
+
+        DB::table('follows')
+        ->where([
+            ['follow','=',$id],
+            ['follower','=',$userId]])
+        ->delete();
+
         return back();
     }
 
-    public function search(){
+    public function search(Request $request){
 
-        $allUser = Db::table('users')
-        ->select('username','images')
-        ->get();
+        $userId = Auth::id();
 
-        return view('users.search');
+        $users = DB::table('users')
+        ->where('id',$userId)
+        ->first();
+
+        $follow = DB::table('follows')
+        ->where('follower',$userId)
+        ->count();
+
+        $follower = DB::table('follows')
+        ->where('follow',$userId)
+        ->count();
+
+        $searchWord = $request->input('search');
+
+        if($searchWord == null){
+
+            $results = DB::table('users')
+            ->leftJoin('follows','users.id','=','follows.follow')
+            ->where('users.id','<>',$userId)
+            ->select('users.username','users.images','users.id','follows.follower')
+            ->groupBy('users.id')
+            ->get();
+
+        }else{
+
+            $results = DB::table('users')
+            ->leftJoin('follows','users.id','=','follows.follow')
+            ->where('username','LIKE',"%$searchWord%")
+            ->select('users.username','users.images','users.id','follows.follower')
+            ->groupBy('users.id')
+            ->get();
+
+        }
+
+
+        return view('users.search',compact('users','follow','follower','results','searchWord'));
     }
+
+
 }

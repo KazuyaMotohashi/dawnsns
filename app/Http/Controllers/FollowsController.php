@@ -30,19 +30,22 @@ class FollowsController extends Controller
         ->where('follow',$id)
         ->count();
 
-
         $follow_id = DB::table('follows')
         ->where('follower',$id)
         ->pluck('follow');
 
-
-        $follows = DB::table('users')
-        ->Join('posts','users.id','=','posts.user_id')
-        ->whereIn('posts.user_id',$follow_id)
-        ->select('posts.*','users.username','users.bio','users.images')
+        $follows = DB::table('posts')
+        ->leftJoin('users','posts.user_id','=','users.id')
+        ->whereIn('users.id',$follow_id)
+        ->select('posts.post','posts.created_at','posts.user_id','users.id','users.username','users.bio','users.images')
         ->get();
 
-        return view('follows.followList',compact('users','follows','follower','follow'));
+        $icons = Db::table('users')
+        ->whereIn('id',$follow_id)
+        ->select('id','images')
+        ->get();
+
+        return view('follows.followList',compact('users','follows','follower','follow','icons'));
     }
 
     public function followerList(){
@@ -61,21 +64,42 @@ class FollowsController extends Controller
         ->where('follow',$id)
         ->count();
 
-        $followers = DB::table('posts')
-        ->leftJoin('users','posts.user_id','=','users.id')
-        ->Join('follows','users.id','=','follows.follower')
-        ->where('follows.follow',$id)
-        ->select('posts.*','users.username','users.bio','users.images')
+        $followers = DB::table('users')
+        ->leftJoin('posts','users.id','=','posts.user_id')
+        ->leftJoin('follows','users.id','=','follows.follower')
+        ->where('follows.follow',auth::id())
+        ->groupBy('users.id')
+        ->select('posts.post','posts.created_at','users.id','users.username','users.bio','users.images')
         ->get();
+
 
         return view('follows.followerList',compact('users','follow','follower','followers'));
     }
 
-    public function add_follow()
-    {
+     public function addFollow($id){
+
+        $userId = Auth::id();
+
+         DB::table('follows')
+        ->insert([
+            'follow'=>$id,
+            'follower'=>$userId,
+        ]);
+
+       return back();
     }
 
-    public function delete_follow()
-    {
+    public function deleteFollow($id){
+
+        $userId = Auth::id();
+
+        DB::table('follows')
+        ->where([
+            ['follow','=',$id],
+            ['follower','=',$userId]])
+        ->delete();
+
+        return redirect()->route('profile',['id'=>$id]);
     }
+
 }
