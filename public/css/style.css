@@ -1,22 +1,295 @@
 @charset "utf-8";
-html{
-}
-body{
-}
+
+html {}
+
+body {}
+
+#head {}
+
+
 /* header */
-header{
-    background:#3C4767;
+header {
+    background: #3C4767;
 }
 
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#menu {
+    display: block;
+}
+
+
+.btn {
+    display: inline;
+    background-color: #3C4767;
+    color: white;
+}
+
+.btn-success {
+    align-items: center;
+    width: 50px;
+    height: 50px;
+
+}
+
+.btn-delete {
+    display: inline;
+    background-color: #E2563B;
+    width: auto;
+    height: auto;
+    padding: 0px 0px 0px 0px;
+}
+
+button {
+    align-items: flex-end;
+}
+
+.btn-add {}
+
+/* プルダウン */
+.g-nav {
+    /* position:要素の配置方法 */
+    width: 19%s;
+}
+
+.menu-trigger {
+    display: relative;
+    color: #fff;
+    margin: auto;
+}
+
+/* index */
+/* .post-form {
+
+} */
+
+.form-control {
+    width: 600px;
+    height: 100px;
+    border: none;
+}
+
+h1 {
+    font-size: 28px;
+    width: 200px;
+}
+
+form {
+    display: flex;
+}
+
+.top-item {
+    border-bottom: 5px solid #D7D7D7;
+    display: flex;
+    height: auto;
+    justify-content: space-evenly;
+}
+
+.post-item {
+    border-bottom: 2px solid #D7D7D7;
+    width: 100%;
+}
+
+
+/* グローバルナビゲーション */
+.g-nav ul {
+    display: block;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.g-nav ul li {
+    flex-basis: 16.6%;
+    /* flex-basis:flex子要素の横幅 */
+    text-align: center;
+}
+
+.g-nav ul li a:hover {
+    color: #ccc;
+    background-color: #eb3c55;
+    opacity: 0.5;
+}
+
+.g-nav ul li a {
+    display: block;
+    color: #fff;
+    padding: 20px 0;
+    /* padding:内側の余白設定 */
+}
+
+.menu {
+    display: none;
+}
+
+.ku.active {
+    transform: rotate(180deg);
+}
+
+
 /* main content */
-#row{
+#row {
     display: flex;
     flex-flow: row wrap;
 }
-#container{
+
+#container {
+    position: relative;
     flex: 0 0 80%;
+    top: 0px;
+    right: 0px;
+    width: 80%;
 }
-#side-bar{
+
+#confirm {
+    justify-content: center;
+}
+
+#side-bar {
     flex: 0 0 19%;
     border-left: 1px solid #6C6C6C;
+    justify-content: center;
+
+}
+
+.side-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+#list {
+    flex: 0 0 19%;
+    position: relative;
+}
+
+#pulldown-menu {
+    flex: 0 0 19%;
+    position: relative;
+    z-index: 2;
+    transform: translateY(0%);
+    transition: .5s ease-in-out;
+    height: 200px;
+    display: block;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url("image.jpg");
+    margin: 10px 10px 10px 10px;
+}
+
+.icon {
+    width: 51px;
+    height: 51px;
+    border-radius: 50%;
+    background-image: url("image.jpg");
+    margin: 10px 10px 10px 10px;
+}
+
+.main-logo {
+    width: 140px;
+    height: 70px;
+}
+
+.title {
+    font-size: 28px;
+    color: #6C6C6C;
+}
+
+/* tr,
+td {
+    display: block;
+    max-width: 80%;
+} */
+
+.create-data {
+    right: 5px;
+}
+
+
+/* モーダル */
+.edit-form {
+    display: none;
+}
+
+.edit-inner {
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #666666;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.edit-content {
+    display: block;
+    text-align: center;
+    width: 70%;
+}
+
+textarea {
+    max-width: 90%;
+}
+
+.active-form {
+    background-color: white;
+    padding: 20px 20px 20px 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+
+.edit-img {
+    text-align: right;
+}
+
+/* .edit-inner img {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+} */
+
+/* .inner-title {
+    margin-top: 40px;
+    margin-bottom: 32px;
+    font-size: 2.8rem;
+    font-weight: bold;
+} */
+
+.inner-text {
+    font-size: 1.6rem;
+    width: 70%;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.modalClose {
+    cursor: pointer;
+}
+
+.user-profile {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-form {
+    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: flex-end;
 }
