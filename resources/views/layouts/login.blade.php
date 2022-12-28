@@ -25,13 +25,12 @@
 <body>
     <header>
         <div id = "header">
-        <h1><a href="/top"><img src="{{asset('storage/images/main_logo.png')}}"></a></h1>
+        <h3><a href="/top"><img class="main-logo" src="{{asset('storage/images/main_logo.png')}}"></a></h3>
         <nav class="g-nav">
             <div id="pulldown-menu new-wrapper">
                 <!-- メニューを出す要素 -->
                 <div class="menu-trigger" id="list">
-                    <a><img class="icon" src="{{ asset('storage/images/'.$users->images)}}">{{$users->username}}さん</a>
-                     <a><span class="material-symbols-outlined ku">expand_more</span></a>
+                    <a>{{$users->username}}さん<span class="material-symbols-outlined ku">expand_more</span><img class="header-icon" src="{{ asset('storage/images/'.$users->images)}}"></a>
                 </div>
                 <!-- メニューの中身 -->
                 <div class="menu">
@@ -52,21 +51,21 @@
         <div id="side-bar">
             <div id="confirm">
                 <p>{{ $users -> username }}さんの</p>
-                <div>
+                <div class="side-item">
                 <p>フォロー数</p>
                 <p>{{ $follow }}名</p>
                 </div>
                 <p class="btn"><a href="/follow-list">フォローリスト</a></p>
-                <div>
+                <div class="side-item">
                 <p>フォロワー数</p>
                 <p>{{ $follower }}名</p>
                 </div>
                 <p class="btn"><a href="/follower-list">フォロワーリスト</a></p>
             </div>
-            <p class="btn"><a href="/search">ユーザー検索</a></p>
+            <p class="btn search-btn"><a href="/search">ユーザー検索</a></p>
         </div>
     </div>
     <footer>
-    </footer>s
+    </footer>
 </body>
 </html>

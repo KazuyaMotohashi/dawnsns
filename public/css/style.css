@@ -6,11 +6,48 @@ body {}
 
 #head {}
 
+
 /* header */
 header {
-    display: flex;
     background: #3C4767;
 }
+
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#menu {
+    display: block;
+}
+
+
+.btn {
+    display: inline;
+    background-color: #3C4767;
+    color: white;
+}
+
+.btn-success {
+    align-items: center;
+    width: 50px;
+    height: 50px;
+
+}
+
+.btn-delete {
+    display: inline;
+    background-color: #E2563B;
+    width: auto;
+    height: auto;
+    padding: 0px 0px 0px 0px;
+}
+
+button {
+    align-items: flex-end;
+}
+
+.btn-add {}
 
 /* プルダウン */
 .g-nav {
@@ -18,9 +55,48 @@ header {
     width: 19%s;
 }
 
+.menu-trigger {
+    display: relative;
+    color: #fff;
+    margin: auto;
+}
+
+/* index */
+/* .post-form {
+
+} */
+
+.form-control {
+    width: 600px;
+    height: 100px;
+    border: none;
+}
+
+h1 {
+    font-size: 28px;
+    width: 200px;
+}
+
+form {
+    display: flex;
+}
+
+.top-item {
+    border-bottom: 5px solid #D7D7D7;
+    display: flex;
+    height: auto;
+    justify-content: space-evenly;
+}
+
+.post-item {
+    border-bottom: 2px solid #D7D7D7;
+    width: 100%;
+}
+
+
 /* グローバルナビゲーション */
 .g-nav ul {
-    display: flex;
+    display: block;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
@@ -53,6 +129,7 @@ header {
     transform: rotate(180deg);
 }
 
+
 /* main content */
 #row {
     display: flex;
@@ -64,11 +141,24 @@ header {
     flex: 0 0 80%;
     top: 0px;
     right: 0px;
+    width: 80%;
+}
+
+#confirm {
+    justify-content: center;
 }
 
 #side-bar {
     flex: 0 0 19%;
     border-left: 1px solid #6C6C6C;
+    justify-content: center;
+
+}
+
+.side-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
 }
 
 #list {
@@ -83,7 +173,15 @@ header {
     transform: translateY(0%);
     transition: .5s ease-in-out;
     height: 200px;
+    display: block;
+}
 
+.header-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url("image.jpg");
+    margin: 10px 10px 10px 10px;
 }
 
 .icon {
@@ -91,17 +189,24 @@ header {
     height: 51px;
     border-radius: 50%;
     background-image: url("image.jpg");
+    margin: 10px 10px 10px 10px;
 }
 
-textarea {
-    max-width: 80%;
+.main-logo {
+    width: 140px;
+    height: 70px;
 }
 
-tr,
+.title {
+    font-size: 28px;
+    color: #6C6C6C;
+}
+
+/* tr,
 td {
     display: block;
     max-width: 80%;
-}
+} */
 
 .create-data {
     right: 5px;
@@ -120,7 +225,7 @@ td {
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.3);
     color: #666666;
     position: fixed;
     top: 0;
@@ -129,10 +234,26 @@ td {
 }
 
 .edit-content {
+    display: block;
     text-align: center;
-    margin: 0;
-    padding: 0;
-    max-width: 1024px;
+    width: 70%;
+}
+
+textarea {
+    max-width: 90%;
+}
+
+.active-form {
+    background-color: white;
+    padding: 20px 20px 20px 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+
+.edit-img {
+    text-align: right;
 }
 
 /* .edit-inner img {
@@ -158,4 +279,17 @@ td {
 
 .modalClose {
     cursor: pointer;
+}
+
+.user-profile {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile-form {
+    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: flex-end;
 }

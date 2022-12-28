@@ -1,10 +1,11 @@
 @extends('layouts.login')
 
 @section('content')
-<h2>機能を実装していきましょう。</h2>
+
 <div class="top-item">
+  <img class="icon" src="{{ asset('storage/images/'.$users->images)}}">
   {!!Form::open(['url'=>'post/create'])!!}
-  <div class ="form-group">
+  <div class ="post-form">
   {!!Form::input('text','newPost',null,['required','class'=>'form-control','placeholder'=>'何をつぶやこうか…?'])!!}
   </div>
   <button type="submit" class="btn btn-success pull-right"><img src="images/post.png" alt="投稿"></button>
@@ -13,7 +14,7 @@
 
 <div>
 @foreach($posts as $post)
-<table>
+<table class="post-item">
 <tr>
   <td><img class="icon" src ="{{ asset('storage/images/'.$post->images)}}"></td>
   <td class="username-data">{{ $post ->username }}</td>
@@ -24,16 +25,18 @@
         <div class ="edit-form js-modal" id="{{$post->id}}">
           <div class="edit-inner">
             <div class="edit-content">
-              <form action="post/{{$post->id}}/update" name="upPost" method="post">
+              <form class="active-form" action="post/{{$post->id}}/update" name="upPost" method="post">
                 @csrf
-                <textarea name="upPost" id="editForm" cols="150" rows="10" width:80%>{{$post->post}}</textarea>
-                <input type="image" src="images/edit.png" alt="編集する">
+                <textarea name="upPost" id="editForm" cols="150" rows="10" width:60%>{{$post->post}}</textarea>
+                <div class="edit-img">
+                <input  type="image" src="images/edit.png" alt="編集する">
+                </div>
               </form>
             </div>
           </div>
         </div>
   </td>
-  <td><a class="btn btn-danger" href="/post/{{ $post->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')"><img src="images/trash.png"onmouseover="this.src='images/trash_h.png'" onmouseout="this.src='images/trash.png'" alt="削除"></a></td>
+  <td><a class=" btn-danger" href="/post/{{ $post->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')"><img src="images/trash.png"onmouseover="this.src='images/trash_h.png'" onmouseout="this.src='images/trash.png'" alt="削除"></a></td>
   @endif
   @endforeach
 </tr>

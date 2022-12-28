@@ -1,6 +1,8 @@
 @extends('layouts.login')
 
 @section('content')
+<p class="title">Follower list</p>
+
 <div class="top-item">
 @foreach($followers as $followers_posts)
   <a href ="profile/{{$followers_posts->id}}" ><img class="icon" src ="{{ asset('storage/images/'.$followers_posts->images)}}"></a>
@@ -10,7 +12,7 @@
 <div>
   <div>
     @foreach($followers as $followers_posts)
-    <div>
+    <div class="post-item">
       <td><a href ="profile/{{$followers_posts->id}}" ><img class="icon" src ="{{ asset('storage/images/'.$followers_posts->images)}}"></a></td>
       <td>{{ $followers_posts ->username }}</td>
       <td>{{ $followers_posts ->post }}</td>

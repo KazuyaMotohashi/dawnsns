@@ -8,11 +8,30 @@ $(function () {
       return false;
     });
   });
-  $('.modalClose').on('click', function () {
-    $('.js-modal').fadeOut();
-    return false;
-  });
 });
+
+// if ($('.active-form').on('click')) {
+//   ;
+// } else {
+//   $(modal).fadeOut();
+//   return false;
+// };
+
+$(function () {
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.active-form')) {
+      //ここに外側をクリックしたときの処理
+      var target = $('.modalOpen').data('target');
+      var modal = document.getElementById(target);
+      $(modal).fadeOut();
+    } else {
+      //ここに内側をクリックしたときの処理
+    };
+  })
+});
+
+
+
 
 // $(function () {
 //   $('.menu-trigger').click(function () {

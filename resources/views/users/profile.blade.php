@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="top-item">
-  <h2><img src="{{asset('storage/images/'.$userInformation->images)}}" alt="Icon"></h2>
+  <img class="icon" src="{{asset('storage/images/'.$userInformation->images)}}" alt="Icon">
   <p>Name {{$userInformation-> username }}</p>
   <p>Bio {{$userInformation -> bio }}</p>
 @if(isset($status -> follower) == Auth::id())
@@ -15,7 +15,7 @@
 
 <div>
   @foreach($posts as $post)
-  <td><img src ="{{asset('storage/images/'.$post->images)}}"></td>
+  <td><img class="icon" src ="{{asset('storage/images/'.$post->images)}}"></td>
   <td>{{ $post -> username }}</td>
   <td>{{ $post ->post }}</td>
   <td>{{ $post ->created_at}}</td>
