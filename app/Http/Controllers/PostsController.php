@@ -31,9 +31,9 @@ class PostsController extends Controller
         $posts = DB::table('users')
         ->Join('posts','users.id','=','posts.user_id')
         ->leftJoin('follows','users.id','=','follows.follow')
-        ->select('posts.post','users.username','posts.created_at','posts.id','users.images')
         ->where('follows.follower',$id)
         ->orWhere('user_id',$id)
+        ->select('posts.*','users.username','users.images')
         ->groupBy('posts.id')
         ->orderBy('posts.created_at','desc')
         ->get();
@@ -41,12 +41,125 @@ class PostsController extends Controller
         return view('posts.index',compact('users','follow','follower','posts'));
     }
 
-    public function upPost(){
+    public function create(Request $request)
+    {
+        $id = Auth::id();
 
+        $post = $request->input('newPost');
 
+        DB::table('posts')
+        ->insert([
+            'user_id'=>$id,
+            'post'=>$post,
+            'created_at'=>now(),
+        ]);
 
-       }
+        return redirect('/top');
+    }
 
+    public function update($id, Request $request)
+    {
+
+        $up_post = $request->input('upPost');
+        DB::table('posts')
+            ->where('id', $id)
+            ->update(['post' => $up_post]);
+
+        return redirect('/top');
+    }
+
+    public function delete($id)
+    {
+        DB::table('posts')
+            ->where('id', $id)
+            ->delete();
+
+        return redirect('/top');
+    }
+
+    public function profile(){
+
+        $id = Auth::id();
+
+        $users = DB::table('users')
+        ->where('id',$id)
+        ->first();
+
+        $follow = DB::table('follows')
+        ->where('follower',$id)
+        ->count();
+
+        $follower = DB::table('follows')
+        ->where('follow',$id)
+        ->count();
+
+        return view('posts.profile',compact('users','follow','follower'));
+
+    }
+
+    public function edit(Request $request){
+
+        $id = Auth::id();
+        $username = $request->input('username');
+        $mail = $request->input('mail');
+        $bio = $request->input('bio');
+
+        if(request('newPassword')){
+            $password = bcrypt($request->input('newPassword'));
+        }else{
+            $password = DB::table('users')
+            ->where('id', $id)
+            ->value('password');
+           }
+
+        if(request('images')){
+            $image_name = $request->file('images')->getClientOriginalName();
+            $request->file('images')->storeAs('public/images',$image_name);
+        }else{
+            $image_name = DB::table('users')
+            ->where('id', $id)
+            ->value('images');
+        }
+
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'username' => $username,
+                'mail' => $mail,
+                'password' => $password,
+                'bio' => $bio,
+                'images' => $image_name,
+            ]);
+
+        return back();
+    }
+
+    public function test(){
+        $id = Auth::id();
+
+        $users = DB::table('users')
+            ->where('id',$id)
+            ->first();
+
+        $follow = DB::table('follows')
+            ->where('follower',$id)
+            ->count();
+
+        $follower = DB::table('follows')
+            ->where('follow',$id)
+            ->count();
+
+        $posts = DB::table('users')
+            ->Join('posts','users.id','=','posts.user_id')
+            ->leftJoin('follows','users.id','=','follows.follow')
+            ->Where('user_id',$id)
+            ->select('posts.*','users.username','users.images')
+            ->groupBy('posts.id')
+            ->orderBy('posts.created_at','desc')
+            ->get();
+
+        return view('posts.test',compact('users','follow','follower','posts'));
+    }
 
 
 
