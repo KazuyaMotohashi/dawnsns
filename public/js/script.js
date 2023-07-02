@@ -10,13 +10,6 @@ $(function () {
   });
 });
 
-// if ($('.active-form').on('click')) {
-//   ;
-// } else {
-//   $(modal).fadeOut();
-//   return false;
-// };
-
 $(function () {
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.active-form')) {

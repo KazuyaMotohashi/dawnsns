@@ -45,6 +45,8 @@ class UsersController extends Controller
         ->where('follow','=',$id)
         ->first();
 
+
+
         return view('users.profile',compact('users','follow','follower','posts','userInformation','status'));
     }
 

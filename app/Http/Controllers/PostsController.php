@@ -105,7 +105,7 @@ class PostsController extends Controller
         $bio = $request->input('bio');
 
         if(request('newPassword')){
-            $password = $request->input('newPassword');
+            $password = bcrypt($request->input('newPassword'));
         }else{
             $password = DB::table('users')
             ->where('id', $id)
@@ -132,6 +132,33 @@ class PostsController extends Controller
             ]);
 
         return back();
+    }
+
+    public function test(){
+        $id = Auth::id();
+
+        $users = DB::table('users')
+            ->where('id',$id)
+            ->first();
+
+        $follow = DB::table('follows')
+            ->where('follower',$id)
+            ->count();
+
+        $follower = DB::table('follows')
+            ->where('follow',$id)
+            ->count();
+
+        $posts = DB::table('users')
+            ->Join('posts','users.id','=','posts.user_id')
+            ->leftJoin('follows','users.id','=','follows.follow')
+            ->Where('user_id',$id)
+            ->select('posts.*','users.username','users.images')
+            ->groupBy('posts.id')
+            ->orderBy('posts.created_at','desc')
+            ->get();
+
+        return view('posts.test',compact('users','follow','follower','posts'));
     }
 
 

@@ -36,7 +36,12 @@
           </div>
         </div>
   </td>
-  <td><a class=" btn-danger" href="/post/{{ $post->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')"><img src="images/trash.png"onmouseover="this.src='images/trash_h.png'" onmouseout="this.src='images/trash.png'" alt="削除"></a></td>
+  <td>
+    <a class=" btn-danger" href="/post/{{ $post->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">
+      <img src="images/trash.png"onmouseover="this.src='images/trash_h.png'" onmouseout="this.src='images/trash.png'" alt="削除">
+    </a>
+  </td>
+  <!-- formタグでdelete通信できる -->
   @endif
   @endforeach
 </tr>
